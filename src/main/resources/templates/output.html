@@ -1,0 +1,94 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<table th:if="${detects}" class="table">
+    <thead>
+    <tr>
+        <th>IGN</th>
+        <th>Detected</th>
+        <th>Detected String</th>
+        <th>Pin used</th>
+        <th>Guild</th>
+        <th>Channel</th>
+        <th>By user</th>
+        <th>Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="detection : ${Detections}">
+        <tr>
+            <td th:text="${detection.ign}">
+            <td th:text="${detection.detectionName}">
+            <td th:text="${detection.detectedString}">
+            <td th:text="${detection.pinUsed}">
+            <td th:text="${detection.guild}">
+            <td th:text="${detection.channel}">
+            <td th:text="${detection.generatedBy}">
+            <td th:text="${detection.time}">
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+
+<table th:if="${clients}" class="table">
+    <thead>
+    <tr>
+        <th>Client Name</th>
+        <th>Bought on</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody id="myTable">
+    <th:block th:each="client : ${Client}">
+        <tr th:id="${client.id}">
+            <td th:text="${client.username}">
+            <td th:text="${client.boughtOn}">
+            <td><a class="btn btn-danger" data-toggle="modal"
+                   data-target="#myModal" th:onclick="'showDelete(\''+${client.id} + '\')'"><i class="far fa-trash-alt"></i></a></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+
+<table th:if="${expclients}" class="table">
+    <thead>
+    <tr>
+        <th>Client Name</th>
+        <th>Bought on</th>
+        <th>Expires on</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody id="myTable">
+    <th:block th:each="client : ${expClient}">
+        <tr th:id="${client.id}">
+            <td th:text="${client.username}">
+            <td th:text="${client.boughtOn}">
+            <td th:text="${client.expire}">
+            <td><a class="btn btn-danger" data-toggle="modal"
+                   data-target="#myModal" th:onclick="'showDelete(\''+${client.id} + '\')'"><i class="far fa-trash-alt"></i></a></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+
+
+<table th:if="${index}" class="table">
+    <thead>
+    <tr>
+        <th style="">Username</th>
+        <th>Detected</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="detection : ${Detections}">
+        <tr>
+            <td th:text="${detection.ign}"> </td>
+            <td th:text="${detection.detectionName}"></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+
+</body>
+</html>

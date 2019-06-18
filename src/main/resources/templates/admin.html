@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/theme.css" type="text/css">
+    <title>Admin Panel</title></head>
+
+<body th:unless="${isAdmin}">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top">
+    <div class="container">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbar3SupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center justify-content-center" id="navbar3SupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home page</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="py-5 text-center">
+    <div class="container py-5">
+        <div class="row text-center">
+            <div class="col-md-10 offset-md-1">
+                <div class="card">
+                    <div class="card-header text-center bg-primary"> Admin login&nbsp;</div>
+                    <div class="card-body bg-light">
+                        <form method="POST" class="text-center">
+                            <div class="form-group text-center">
+                                <p class="lead text-danger" th:text="${error?.summary}"></p>
+                                <label class="text-center">Password</label>
+                                <input type="password" name="password" class="form-control text-center"
+                                       placeholder="Enter password"></div>
+                            <button type="submit" class="btn btn-primary text-center active">Login
+                                <br>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+<body th:if="${isAdmin}">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top">
+    <div class="container">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbar3SupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center justify-content-center" id="navbar3SupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home page</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="py-5 text-center">
+    <div class="container py-5">
+        <div class="row text-center">
+            <div class="col-md-10 offset-md-1">
+                <div class="card">
+                    <div class="card-header text-center bg-primary"
+                         th:text="'Admin Panel! Hello ' + ${session.username}">Admin Panel&nbsp;
+                    </div>
+                    <div class="alert alert-success" id="success" role="alert" style="display: none;">
+                        <button type="button" class="close" onclick="hideSucc()">×</button>
+                        <h4 class="alert-heading">Client added!</h4>
+                        <p class="mb-0">Client successfully added! Please wait up to 1 mintue for the role to be
+                            given!</p>
+                    </div>
+                    <div class="alert alert-danger" id="successRemove" role="alert" style="display: none;">
+                        <button type="button" class="close" onclick="hideSuccR()">×</button>
+                        <h4 class="alert-heading">Client removed!</h4>
+                        <p class="mb-0">Client successfully removed! Please wait up to 20 seconds for the role to get
+                            removed!</p>
+                    </div>
+                    <div class="card-body bg-light">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">Show latest
+                                detections <a class="btn btn-primary" onclick="showDetections()" href="#"
+                                              data-toggle="modal"
+                                              data-target="#myModal">Show<br></a></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">Show current
+                                clients <a class="btn btn-primary" onclick="showClients()" href="#" data-toggle="modal"
+                                           data-target="#myModal">Show<br></a></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">Show current
+                                expirable
+                                clients <a class="btn btn-primary" onclick="showExpirableClients()" href="#"
+                                           data-toggle="modal"
+                                           data-target="#myModal">Show<br></a></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">Add client
+                                <a class="btn btn-primary" href="#" data-toggle="modal"
+                                   data-target="#addModal">Add<br></a></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">Add monthly
+                                client
+                                <a class="btn btn-primary" href="#" data-toggle="modal"
+                                   data-target="#addModal30">Add<br></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myContainer" style="display: none;" class="py-5 container-fluid">
+        <div class="row text-center">
+            <div class="offset-md-1 col-md-10">
+                <div class="card">
+                    <div class="card-header text-center bg-primary" id="myTitle"> Output<br></div>
+                    <div class="card-body bg-light" id="myBody">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="modalTitle" class="modal-title">Detections<br></h5>
+                <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+            </div>
+            <div class="modal-body">
+                <p id="modalBody">Please enter the amount of the detections you want to see!</p>
+                <form id="c_form-h">
+                    <div class="form-group row"><label for="countInput"
+                                                       class="col-2 col-form-label">Count:<br></label>
+                        <div class="col-10">
+                            <input type="number" class="form-control" id="countInput" value="10"
+                                   placeholder="Count"
+                                   required="required"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="showBtn" type="button" class="btn btn-primary" data-dismiss="modal">Show
+                </button>
+                <button id="closeBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="addModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Client<br></h5>
+                <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Please enter information about the client!</p>
+                <form id="c_form-h adder" class="">
+                    <div class="form-group row"><label for="userId" class="col-2 col-form-label">User ID<br></label>
+                        <div class="col-10">
+                            <input type="text" class="form-control" id="userId" placeholder="User ID"
+                                   required="required" style=""></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="addBtn" onclick="addClient()" data-dismiss="modal">Add</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="addModal30">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Client<br></h5>
+                <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Please enter information about the client!</p>
+                <form id="c_form-h adder30" class="">
+                    <div class="form-group row"><label for="userId" class="col-2 col-form-label">User ID<br></label>
+                        <div class="col-10">
+                            <input type="text" class="form-control" id="userId30" placeholder="User ID"
+                                   required="required" style=""></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="addClientMonthly()" id="addBtn30" data-dismiss="modal">Add</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function showDelete(id) {
+        document.getElementById('modalTitle').innerText = "Do you really want to delete it!";
+        document.getElementById('modalBody').innerHTML = "Do you really want to delete the user with id " + id + "?\n";
+        document.getElementById('showBtn').innerText = "Yes";
+        document.getElementById('closeBtn').innerText = "No";
+        document.getElementById('c_form-h').style.display = 'none';
+        document.getElementById('showBtn').onclick = function () {
+            deleteU(id)
+        };
+    }
+
+    function showDetections() {
+        document.getElementById('modalTitle').innerText = "Detections!";
+        document.getElementById('modalBody').innerHTML = "Please enter the amount of the detections you want to see!\n";
+        document.getElementById('showBtn').innerText = "Show";
+        document.getElementById('closeBtn').innerText = "Close";
+        document.getElementById('c_form-h').style.display = '';
+        document.getElementById('showBtn').onclick = function () {
+            showOutput('latest', 'detections')
+        };
+    }
+
+    function showClients() {
+        document.getElementById('modalTitle').innerText = "Clients!";
+        document.getElementById('modalBody').innerHTML = "Please enter the amount of the clients you want to see!\n";
+        document.getElementById('showBtn').innerText = "Show";
+        document.getElementById('closeBtn').innerText = "Close";
+        document.getElementById('c_form-h').style.display = '';
+        document.getElementById('showBtn').onclick = function () {
+            showOutput('clients', 'clients')
+        };
+    }
+
+    function showExpirableClients() {
+        document.getElementById('modalTitle').innerText = "Expirable clients!";
+        document.getElementById('modalBody').innerHTML = "Please enter the amount of the expirable clients you want to see!\n";
+        document.getElementById('showBtn').innerText = "Show";
+        document.getElementById('closeBtn').innerText = "Close";
+        document.getElementById('c_form-h').style.display = '';
+        document.getElementById('showBtn').onclick = function () {
+            showOutput('expclients', 'expirable clients')
+        };
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script>
+    function hideSucc() {
+        document.getElementById('success').style.display = 'none';
+    }
+
+    function hideSuccR() {
+        document.getElementById('successRemove').style.display = 'none';
+    }
+
+    function showOutput(action, name) {
+        xhttp = new XMLHttpRequest();
+        var ci = document.getElementById('countInput').value;
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById('myBody').innerHTML = this.responseText;
+                document.getElementById('myTitle').innerText = "Last " + ci + " " + name + ":";
+                document.getElementById('myContainer').style.display = '';
+            }
+        };
+        xhttp.open("GET", "api?action=" + action + "&count=" + ci, true);
+        xhttp.send();
+    }
+
+    function deleteU(id) {
+        xhttp = new XMLHttpRequest();
+        var ci = document.getElementById('countInput').value;
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                var element = document.getElementById(id);
+                document.getElementById('myTable').removeChild(element);
+                document.getElementById('successRemove').style.display = '';
+            }
+        };
+        xhttp.open("GET", "api?action=remove&user=" + id, true);
+        xhttp.send();
+    }
+
+    function addClient() {
+        xhttp = new XMLHttpRequest();
+        var uID = document.getElementById('userId').value;
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById('success').style.display = '';
+            }
+        };
+        xhttp.open("GET", "api?action=add&user=" + uID, true);
+        xhttp.send();
+    }
+
+    function addClientMonthly() {
+        xhttp = new XMLHttpRequest();
+        var uID = document.getElementById('userId30').value;
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById('success').style.display = '';
+            }
+        };
+        xhttp.open("GET", "api?action=add&count=15&user=" + uID, true);
+        xhttp.send();
+    }
+</script>
+</body>
+
+</html>

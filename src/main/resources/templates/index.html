@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Azran SS Tool is an Minecraft SS Tool with high quality!" />
+    <meta name="keywords" content="Azran, Minecraft, SS Tool" />
+    <meta name="robots" content="index, follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          type="text/css">
+    <link rel="stylesheet" href="./css/theme.css">
+    <title>Azran!</title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top">
+    <div class="container-fluid">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbar3SupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center justify-content-center" id="navbar3SupportedContent">
+            <p class="lead">AZRAN - The best minecraft ss tool</p>
+        </div>
+    </div>
+</nav>
+<div class="py-5 text-center"
+     style="background-image: url('./img/walp.jpg');background-position:center center;background-size:cover;background-repeat:no-repeat;">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="display-3 mb-4 text-primary">Azran</h1>
+                <p class="mb-5 lead text-uppercase text-center text-light">Azran is a Screen Share (SS) tool
+                    <br>&nbsp;used to scan a player's computer
+                    <br>&nbsp;&amp; running instance of Minecraft to
+                    <br>&nbsp;detect various cheats/hacked&nbsp;
+                    <br>clients they could be using.&nbsp;</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="p-0 bg-primary m-0">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <div class="row text-left mt-5">
+                    <th:block th:each="video : ${Videos}">
+                        <div class="col-md-4 my-3">
+                            <a th:href="${video.fileName.contains('youtube')} ? ${video.fileName} : '/watch/' + ${video.id}">
+                                <div class="row mb-3">
+                                    <div class="align-self-center col-10 col-md-12">
+                                        <h3 class="text-light text-center">
+                                            <b th:text="${video.videoName}"></b>
+                                            <br>
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class=" col-md-12">
+                                    <img class="img-fluid d-block" th:src="@{${video.icon}}">
+                                </div>
+                            </a>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="py-5 bg-info" style="	background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), ;	background-position: center center, center center;	background-size: 100%, 100%;	background-repeat: repeat, repeat;">
+    <div class="container">
+        <div class="row">
+            <div class="text-center mx-auto col-md-12">
+                <h1 class="text-light">Pricing</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 p-3">
+                <div class="card text-center text-dark">
+                    <div class="card-body p-4">
+                        <h3>Individual<br>(Monthly)</h3>
+                        <p class="my-3">License to use Azran for 1 month in the Azran discord!</p>
+                        <h2> <b>3.99$</b> </h2> <a class="btn btn-primary mt-3" href="https://discord.gg/CThasw3">Buy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 p-3">
+                <div class="card text-center text-dark">
+                    <div class="card-body p-4">
+                        <h3>Individual (Permanent)</h3>
+                        <p class="my-3">Permanent license to use Azran for yourself in the Azran discord</p>
+                        <h2> <b>9.99$</b> </h2> <a class="btn btn-primary mt-3" href="https://discord.gg/CThasw3">Buy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 p-3">
+                <div class="card text-center text-dark">
+                    <div class="card-body p-4">
+                        <h3>Network Partnership</h3>
+                        <p class="my-2">Upon purchase you and your staff team will receive a permanent license for Azran &amp; the AzranBot in your server's discord.<br></p>
+                        <h2> <b>19.99$</b> </h2> <a class="btn btn-primary mt-3" href="https://discord.gg/CThasw3">Buy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="py-5 text-center bg-primary text-light" style="	background-size: cover;	background-position: top left;	background-repeat: repeat;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="">Latest detections:</h1>
+            </div>
+        </div>
+        <div class="bg-white p-5 mx-auto col-md-12 col-10 text-dark" >
+            <div class="row">
+                <div class="table-responsive" id="myBody">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<div class="bg-dark text-white py-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-3 text-center">
+                <p>© Copyright 2018 Azran - All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<!--<script>
+/*
+    var _0xed1b=["\x6F\x6E\x72\x65\x61\x64\x79\x73\x74\x61\x74\x65\x63\x68\x61\x6E\x67\x65","\x72\x65\x61\x64\x79\x53\x74\x61\x74\x65","\x73\x74\x61\x74\x75\x73","\x69\x6E\x6E\x65\x72\x48\x54\x4D\x4C","\x6D\x79\x42\x6F\x64\x79","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x72\x65\x73\x70\x6F\x6E\x73\x65\x54\x65\x78\x74","\x47\x45\x54","\x61\x70\x69\x3F\x61\x63\x74\x69\x6F\x6E\x3D\x69\x6E\x64\x65\x78","\x6F\x70\x65\x6E","\x73\x65\x6E\x64"];xhttp=  new XMLHttpRequest();xhttp[_0xed1b[0]]= function(){if(this[_0xed1b[1]]=== 4&& this[_0xed1b[2]]=== 200){document[_0xed1b[5]](_0xed1b[4])[_0xed1b[3]]= this[_0xed1b[6]]}};xhttp[_0xed1b[9]](_0xed1b[7],_0xed1b[8],true);xhttp[_0xed1b[10]]()
+*/
+</script>-->
+</body>
+</html>
